@@ -1,0 +1,29 @@
+{
+  "name": "bknd_lesson",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexandr-exe/bknd_lesson.git"
+  },
+  "author": "Alexandr Tatarnikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexandr-exe/bknd_lesson/issues"
+  },
+  "homepage": "https://github.com/Alexandr-exe/bknd_lesson#readme",
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
