@@ -3,16 +3,18 @@ const path = require('path');
 const cards = require('./routes/cards');
 const users = require('./routes/users');
 
-const { PORT } = 3000
+const { PORT } = 3000;
 
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', cards)
-app.use('/', users)
-app.use(function (req, res) {
-  res.status(404).send({ "message": "Запрашиваемый ресурс не найден" })
-})
+app.use('/', cards);
+app.use('/', users);
+app.use((req, res) => {
+  res.status(404).send({ message: ' Запрашиваемый ресурс не найден ' });
+});
 
-app.listen(PORT)
+app.listen(PORT, () => {
+
+});
