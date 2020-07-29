@@ -4,26 +4,23 @@ const fs = require('fs');
 
 const usersPath = path.join(__dirname, '../data', 'users.json');
 
-const usersReadFile = (filePath) => {
-  const file = fs.createReadStream(filePath, { encoding: 'utf8' });
-  return file;
-};
+const usersReadFile = (filePath) => fs.createReadStream(filePath, { encoding: 'utf8' });
 
 router.get('/users', (req, res) => {
   const file = usersReadFile(usersPath);
+  res.set({ 'content-type': 'application/json; charset=utf-8' });
   file.on('error', () => {
-    res.set({ 'content-type': 'application/json; charset=utf-8' });
     res.status(500).send({ message: 'Что то пошло не так' });
   });
-  res.set({ 'content-type': 'application/json; charset=utf-8' });
   file.pipe(res);
 });
 
 router.get('/users/:id', (req, res) => {
   const { id } = req.params;
   const users = usersReadFile(usersPath);
+
   users.on('error', () => {
-    res.status(500).send({ message: 'Ошибка Сервера' });
+    res.status(500).send({ message: 'Что то пошло не так' });
   });
   users.on('data', (data) => {
     const usersList = JSON.parse(data);
