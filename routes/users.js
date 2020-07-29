@@ -26,6 +26,7 @@ router.get('/users/:id', (req, res) => {
     const usersList = JSON.parse(data);
     res.set({ 'content-type': 'application/json; charset=utf-8' });
     const user = usersList.find((person) => person._id === id);
+
     if (!user) {
       res.status(404).send({ message: 'Пользователь с таким id не найдён' });
       return;
