@@ -12,21 +12,25 @@ router.get('/users', (req, res) => {
   file.on('error', () => {
     res.status(500).send({ message: 'Что то пошло не так' });
   });
-  file.pipe(res);
+  file.on('open', () => file.pipe(res));
 });
 
 router.get('/users/:id', (req, res) => {
   const { id } = req.params;
   const users = usersReadFile(usersPath);
 
+  res.set({ 'content-type': 'application/json; charset=utf-8' });
+  let usersList = [];
   users.on('error', () => {
     res.status(500).send({ message: 'Что то пошло не так' });
   });
-  users.on('data', (data) => {
-    const usersList = JSON.parse(data);
-    res.set({ 'content-type': 'application/json; charset=utf-8' });
-    const user = usersList.find((person) => person._id === id);
 
+  users.on('data', (data) => {
+    usersList += data;
+  });
+
+  users.on('end', () => {
+    const user = JSON.parse(usersList).find((person) => person._id === id);
     if (!user) {
       res.status(404).send({ message: 'Пользователь с таким id не найдён' });
       return;
